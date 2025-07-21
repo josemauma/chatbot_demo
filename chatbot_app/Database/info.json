@@ -1,0 +1,42 @@
+[
+  {
+    "Service": "Exterior Wash",
+    "Description": "Complete cleaning of the car body with specific products.",
+    "Duration_minutes": 30,
+    "Base_price": 15,
+    "Vehicle_type": "Small car",
+    "Included_extras": ["Rinse", "Drying"],
+    "Recommended_frequency": "Weekly",
+    "Difficulty_level": "Low"
+  },
+  {
+    "Service": "Interior Wash",
+    "Description": "Vacuuming and cleaning of interior surfaces and windows.",
+    "Duration_minutes": 45,
+    "Base_price": 25,
+    "Vehicle_type": "SUV",
+    "Included_extras": ["Seat vacuuming", "Dashboard cleaning", "Windows"],
+    "Recommended_frequency": "Monthly",
+    "Difficulty_level": "Medium"
+  },
+  {
+    "Service": "Full Wash",
+    "Description": "Exterior and interior wash with extra detailing.",
+    "Duration_minutes": 90,
+    "Base_price": 50,
+    "Vehicle_type": "Small car",
+    "Included_extras": ["Rinse", "Drying", "Vacuuming", "Basic polishing"],
+    "Recommended_frequency": "Monthly",
+    "Difficulty_level": "High"
+  },
+  {
+    "Service": "Waxing",
+    "Description": "Application of protective wax for shine and paint protection.",
+    "Duration_minutes": 60,
+    "Base_price": 40,
+    "Vehicle_type": "SUV",
+    "Included_extras": ["Pre-polishing", "Protective wax"],
+    "Recommended_frequency": "Every 3 months",
+    "Difficulty_level": "Medium"
+  }
+]
