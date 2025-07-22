@@ -48,7 +48,7 @@ toggleBtn.addEventListener('click', () => {
     const options = [
       "Services available",
       "Prices per service",
-      "Make a booking",
+      "Opening hours",
       "Contact support"
     ];
 
