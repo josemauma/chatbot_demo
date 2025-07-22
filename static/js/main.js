@@ -1,47 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const chatWindow = document.getElementById("chat-window");
-  const chatForm = document.getElementById("chat-form");
-  const userInput = document.getElementById("user-input");
+  const chatbox = document.querySelector(".chatbox");
+  const toggleBtn = document.querySelector(".chatbox__toggle");
+  const closeBtn = document.querySelector(".chatbox__close");
+  const messagesContainer = document.querySelector(".chatbox__messages");
+  const chatForm = document.querySelector("#chat-form");
+  const userInput = document.querySelector("#user-input");
 
+  // Abrir/cerrar chat
+  toggleBtn.addEventListener("click", () => {
+    chatbox.classList.add("chatbox--active");
+    toggleBtn.style.display = "none";
+    userInput.focus();
+  });
+
+  closeBtn.addEventListener("click", () => {
+    chatbox.classList.remove("chatbox--active");
+    toggleBtn.style.display = "block";
+  });
+
+  // Mostrar mensaje
+  function appendMessage(text, sender) {
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", sender);
+    messageDiv.textContent = text;
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  // Enviar mensaje
   chatForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const message = userInput.value.trim();
     if (!message) return;
 
-    // Mostrar mensaje del usuario
-    appendMessage("user", message);
-
+    appendMessage(message, "user");
     userInput.value = "";
-    userInput.focus();
 
     try {
       const response = await fetch("/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message }),
       });
 
       if (!response.ok) {
-        appendMessage("bot", "Error: Failed to get response from server.");
+        appendMessage("Error: Failed to get response from server.", "bot");
         return;
       }
 
       const data = await response.json();
-      appendMessage("bot", data.response);
+      appendMessage(data.response, "bot");
     } catch (error) {
-      appendMessage("bot", "Error: Could not reach server.");
+      appendMessage("Error: Could not reach server.", "bot");
       console.error("Fetch error:", error);
     }
   });
-
-  function appendMessage(sender, text) {
-    const msgDiv = document.createElement("div");
-    msgDiv.classList.add("message", sender);
-    msgDiv.textContent = text;
-    chatWindow.appendChild(msgDiv);
-    chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll down
-  }
 });
