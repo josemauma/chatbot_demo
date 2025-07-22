@@ -2,26 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Chatbot</title>
+  <title>Car Washing Bot</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 </head>
 <body>
-
-  <div class="chatbox">
-    <div class="chatbox__header">
-      <div class="chatbox__title">Chat support</div>
-      <button class="chatbox__close">&times;</button>
+  <!-- Contenedor chatbot inicialmente oculto -->
+  <div id="chatbot-container" class="chatbot-container hidden">
+    <div class="chatbox">
+      <!-- Aquí va el contenido de tu chatbot completo -->
+      <div class="chatbox__header">
+        <img class="chatbox__avatar" src="https://avatar.iran.liara.run/public/34" alt="Steph" />
+        <div class="chatbox__header-text">
+          <div class="chatbox__name">Steph</div>
+          <div class="chatbox__status">Hi, I'm a IA assistant!</div>
+        </div>
+      </div>
+      <div class="chatbox__messages"></div>
+      <div class="chatbox__quick-buttons"></div>
+      <form class="chatbox__footer" id="chat-form">
+        <input type="text" id="user-input" placeholder="Write a message" autocomplete="off" />
+        <button type="submit" class="chatbox__send">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#999" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </form>
     </div>
-    <div class="chatbox__messages"></div>
-    <form class="chatbox__footer" id="chat-form">
-      <input type="text" id="user-input" placeholder="Write a message..." autocomplete="off" />
-      <button type="submit" class="chatbox__send">Send</button>
-    </form>
   </div>
 
-  <button class="chatbox__toggle">💬</button>
+  <!-- Botón avatar flotante -->
+  <button id="chatbot-toggle" class="chatbot-toggle">
+    <img src="https://avatar.iran.liara.run/public/34" alt="Avatar" class="chatbot-avatar" />
+    <span class="chatbot-bubble-icon">💬</span>
+  </button>
 
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
+
 </html>

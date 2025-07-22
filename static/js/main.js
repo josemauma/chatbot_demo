@@ -1,58 +1,76 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const chatbox = document.querySelector(".chatbox");
-  const toggleBtn = document.querySelector(".chatbox__toggle");
-  const closeBtn = document.querySelector(".chatbox__close");
   const messagesContainer = document.querySelector(".chatbox__messages");
+  const quickButtonsContainer = document.querySelector(".chatbox__quick-buttons");
   const chatForm = document.querySelector("#chat-form");
   const userInput = document.querySelector("#user-input");
+  const toggleBtn = document.getElementById('chatbot-toggle');
+const chatbotContainer = document.getElementById('chatbot-container');
 
-  // Abrir/cerrar chat
-  toggleBtn.addEventListener("click", () => {
-    chatbox.classList.add("chatbox--active");
-    toggleBtn.style.display = "none";
-    userInput.focus();
-  });
+toggleBtn.addEventListener('click', () => {
+  chatbotContainer.classList.toggle('hidden');
+});
 
-  closeBtn.addEventListener("click", () => {
-    chatbox.classList.remove("chatbox--active");
-    toggleBtn.style.display = "block";
-  });
 
-  // Mostrar mensaje
-  function appendMessage(text, sender) {
+
+  function formatMessage(message) {
+  return message.replace(/\n/g, '<br>');
+}
+
+  function appendMessage(text, sender = "bot") {
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message", sender);
-    messageDiv.textContent = text;
+    messageDiv.innerHTML = formatMessage(text);
     messagesContainer.appendChild(messageDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
 
-  // Enviar mensaje
-  chatForm.addEventListener("submit", async (e) => {
+  function sendMessage(text) {
+    appendMessage(text, "user");
+
+    fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        appendMessage(data.response, "bot");
+      })
+      .catch(() => {
+        appendMessage("Error: Could not reach server.", "bot");
+      });
+  }
+
+  function initChat() {
+    appendMessage("👋 Welcome to CleanCar! How can we assist you today?");
+    appendMessage("Please select an option below or write your question.");
+
+    const options = [
+      "Services available",
+      "Prices per service",
+      "Make a booking",
+      "Contact support"
+    ];
+
+    options.forEach((option) => {
+      const btn = document.createElement("button");
+      btn.classList.add("chatbox__quick-button");
+      btn.textContent = option;
+      btn.addEventListener("click", () => {
+        sendMessage(option);
+        //quickButtonsContainer.innerHTML = "";
+      });
+      quickButtonsContainer.appendChild(btn);
+    });
+  }
+
+  chatForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const message = userInput.value.trim();
     if (!message) return;
-
-    appendMessage(message, "user");
+    sendMessage(message);
     userInput.value = "";
-
-    try {
-      const response = await fetch("/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
-      });
-
-      if (!response.ok) {
-        appendMessage("Error: Failed to get response from server.", "bot");
-        return;
-      }
-
-      const data = await response.json();
-      appendMessage(data.response, "bot");
-    } catch (error) {
-      appendMessage("Error: Could not reach server.", "bot");
-      console.error("Fetch error:", error);
-    }
   });
+
+  initChat();
 });
