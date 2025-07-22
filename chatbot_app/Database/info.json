@@ -6,8 +6,7 @@
     "Base_price": 15,
     "Vehicle_type": "Small car",
     "Included_extras": ["Rinse", "Drying"],
-    "Recommended_frequency": "Weekly",
-    "Difficulty_level": "Low"
+    "Recommended_frequency": "Weekly"
   },
   {
     "Service": "Interior Wash",
@@ -16,8 +15,7 @@
     "Base_price": 25,
     "Vehicle_type": "SUV",
     "Included_extras": ["Seat vacuuming", "Dashboard cleaning", "Windows"],
-    "Recommended_frequency": "Monthly",
-    "Difficulty_level": "Medium"
+    "Recommended_frequency": "Monthly"
   },
   {
     "Service": "Full Wash",
@@ -26,8 +24,7 @@
     "Base_price": 50,
     "Vehicle_type": "Small car",
     "Included_extras": ["Rinse", "Drying", "Vacuuming", "Basic polishing"],
-    "Recommended_frequency": "Monthly",
-    "Difficulty_level": "High"
+    "Recommended_frequency": "Monthly"
   },
   {
     "Service": "Waxing",
@@ -36,7 +33,6 @@
     "Base_price": 40,
     "Vehicle_type": "SUV",
     "Included_extras": ["Pre-polishing", "Protective wax"],
-    "Recommended_frequency": "Every 3 months",
-    "Difficulty_level": "Medium"
+    "Recommended_frequency": "Every 3 months"
   }
 ]
